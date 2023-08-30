@@ -20,6 +20,8 @@ import com.yzecommecer.yzecommecer.dto.ProductDTO;
 import com.yzecommecer.yzecommecer.dto.ProductMinDTO;
 import com.yzecommecer.yzecommecer.services.ProductService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/products")
 public class ProductController {
@@ -39,7 +41,7 @@ public class ProductController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO product) {
+	public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO product) {
 		product = service.insert(product);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(product.getId()).toUri();
@@ -47,7 +49,7 @@ public class ProductController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO product){
+	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO product){
 		return ResponseEntity.ok(service.update(id, product));
 	}
 	
