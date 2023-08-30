@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.yzecommecer.yzecommecer.dto.CustomError;
 import com.yzecommecer.yzecommecer.dto.ValidationError;
 import com.yzecommecer.yzecommecer.services.exceptions.DatabaseException;
+import com.yzecommecer.yzecommecer.services.exceptions.ForbiddenException;
 import com.yzecommecer.yzecommecer.services.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,6 +43,13 @@ public class ControllerExceptionHandler {
 			err.addError(f.getField(), f.getDefaultMessage());
 		}
 		
+		return ResponseEntity.status(status).body(err);
+	}
+
+	@ExceptionHandler(ForbiddenException.class)
+	public ResponseEntity<CustomError> database(ForbiddenException e, HttpServletRequest request){
+		HttpStatus status = HttpStatus.FORBIDDEN;
+		CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
