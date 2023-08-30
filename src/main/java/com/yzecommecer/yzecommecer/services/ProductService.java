@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yzecommecer.yzecommecer.dto.CategoryDTO;
 import com.yzecommecer.yzecommecer.dto.ProductDTO;
 import com.yzecommecer.yzecommecer.dto.ProductMinDTO;
+import com.yzecommecer.yzecommecer.entities.Category;
 import com.yzecommecer.yzecommecer.entities.Product;
 import com.yzecommecer.yzecommecer.repositories.ProductRepository;
 import com.yzecommecer.yzecommecer.services.exceptions.DatabaseException;
@@ -73,6 +75,11 @@ public class ProductService {
 		entity.setDescription(product.getDescription());
 		entity.setPrice(product.getPrice());
 		entity.setImgUrl(product.getImgUrl());
+		for(CategoryDTO dto : product.getCategories()) {
+			Category cat = new Category();
+			cat.setId(dto.getId());
+			entity.getCategories().add(cat);
+		}
 	}
 }
 
