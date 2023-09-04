@@ -3,16 +3,19 @@ package com.yzecommecer.yzecommecer.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yzecommecer.yzecommecer.dto.UserDTO;
+import com.yzecommecer.yzecommecer.dto.UserRegisterDTO;
 import com.yzecommecer.yzecommecer.entities.Role;
 import com.yzecommecer.yzecommecer.entities.User;
 import com.yzecommecer.yzecommecer.projections.UserProjection;
@@ -23,6 +26,10 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	UserRepository repository;
+	
+	@Autowired
+	@Lazy
+	PasswordEncoder passwordEncoder;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -37,6 +44,20 @@ public class UserService implements UserDetailsService {
 			user.addRole(new Role(projection.getRoleId(), projection.getAuthority()));
 		}		
 		return user;
+	}
+	
+	@Transactional
+	public UserRegisterDTO register(UserRegisterDTO dto) {
+		
+		User entity = new User();
+		entity.setEmail(dto.getEmail());
+		entity.setName(dto.getName());
+		entity.setBirthDate(dto.getBirthDate());
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+		entity.setPhone(dto.getPhone());
+		entity.getRoles().add(new Role(1L, "ROLE_CLIENT"));
+		repository.save(entity);
+		return new UserRegisterDTO(entity);
 	}
 	
 	protected User authenticated() {

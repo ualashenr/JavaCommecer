@@ -2,6 +2,7 @@ package com.yzecommecer.yzecommecer.controllers.handles;
 
 import java.time.Instant;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -50,6 +51,13 @@ public class ControllerExceptionHandler {
 	public ResponseEntity<CustomError> database(ForbiddenException e, HttpServletRequest request){
 		HttpStatus status = HttpStatus.FORBIDDEN;
 		CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<CustomError> dataIntegrityViolationException(DataIntegrityViolationException e, HttpServletRequest request){
+		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+		CustomError err = new CustomError(Instant.now(), status.value(), "Dados inválidos", request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
