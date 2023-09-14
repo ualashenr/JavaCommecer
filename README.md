@@ -35,6 +35,9 @@ YseCommercer é uma aplicação que consiste em uma API back-end que disponibili
 * `GET orders by id`: Retorna um pedido pelo seu id (Somente admim)
 * `POST order`: Registra um pedido
 
+## Postman
+![Postman](.github/postman.png)
+
 # Como executar o projeto
 
 ## Back-end
