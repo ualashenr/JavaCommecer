@@ -2,7 +2,7 @@
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/Yse4/yseCommecer/blob/main/LICENSE) 
 
 # Sobre o projeto
-avaCommecer é uma aplicação que consiste em uma API back-end que disponibiliza recursos de comércio como busca de produtos e suas categorias, registro de usuários e registro de pedidos.
+JavaCommecer é uma aplicação que consiste em uma API back-end que disponibiliza recursos de comércio como busca de produtos e suas categorias, registro de usuários e registro de pedidos.
 
 # Modelo Conceitual
 ![Modelagem](.github/Modelagem.png)
