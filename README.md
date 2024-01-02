@@ -1,5 +1,5 @@
 # JavaCommecer
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/Yse4/yseCommecer/blob/main/LICENSE) 
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/ualashenr/JavaCommecer/blob/main/LICENSE) 
 
 # Sobre o projeto
 JavaCommecer é uma aplicação que consiste em uma API back-end que disponibiliza recursos de comércio como busca de produtos e suas categorias, registro de usuários e registro de pedidos.
